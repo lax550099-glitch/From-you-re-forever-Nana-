@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow:hidden;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  transition:opacity .6s;
+}
+
+.hidden{opacity:0;pointer-events:none;}
+
+h1{
+  color:white;
+  text-shadow:0 0 15px rgba(255,255,255,.7);
+}
+
+button{
+  margin-top:20px;
+  padding:14px 34px;
+  font-size:22px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:black;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(255,255,255,.9);
+}
+
+.introImage{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid white;
+  box-shadow:0 0 25px white;
+  margin-bottom:20px;
+}
+
+/* stars */
+.star{
+  position:fixed;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:.3;}
+  to{opacity:1;}
+}
+
+/* text box */
+.box{
+  background:rgba(0,0,0,.85);
+  border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 0 25px rgba(255,255,255,.15);
+  padding:28px;
+  border-radius:20px;
+  max-width:800px;
+  max-height:70vh;
+  overflow-y:auto;
+}
+
+.line{
+  opacity:0;
+  animation:fadeUp 1s forwards;
+  font-size:20px;
+  line-height:1.7;
+  text-shadow:0 0 8px rgba(255,255,255,.4);
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(15px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.popup.show{display:flex;}
+
+.popupContent{
+  background:black;
+  border:1px solid white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 30px white;
+}
+
+.flowers{
+  font-size:60px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="screen" id="intro">
+  <img src="kruthik.jpg" class="introImage">
+  <h1>Valentine’s Day ❤️</h1>
+  <button onclick="start()">YES ❤️</button>
+</div>
+
+<!-- MAIN -->
+<div class="screen hidden" id="main">
+  <div class="box" id="story"></div>
+  <button onclick="finalProposal()">YES ❤️</button>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popupContent">
+    <h1>Will you be mine forever? 💍</h1>
+    <div class="flowers">💐💐💐</div>
+    <p style="font-size:22px;margin-top:15px;">A kiss just for you 💋</p>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="https://dl.dropboxusercontent.com/scl/fi/5k8k9u5w1l8k7v/song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* stars */
+for(let i=0;i<120;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.width=s.style.height=(Math.random()*2+1)+"px";
+  s.style.top=Math.random()*100+"vh";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(s);
+}
+
+/* text lines */
+const lines=[
+"Hmmmm… mana video call gurthundha…",
+"nenu nee meedha kopam ga unna time lo…",
+"nuvvu adigina aa sorry…",
+"Aa sorry entha cute ga undho telusa… aa kshanam lo malli ninnu premistunna ani anipinchindhi 🥹",
+"Naku nuvvu kavali… chala chala kavali…",
+"Life ni nee lekunda imagine cheyalenu 🫂",
+"Please nannu vadileyaku…",
+"Natho manchiga matladu…",
+"Natho time spend chey… adhe chalu…",
+"Naku nethone undali ani anipisthundhi…",
+"Atleast ippatnundi ardham chesko… 😭",
+"I love you so much… chana ante chana…",
+"Nuvvu naa husband… naa matrame sontham…",
+"Forever yours… Nana 💋"
+];
+
+function start(){
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("main").classList.remove("hidden");
+  document.getElementById("music").play();
+
+  let box=document.getElementById("story");
+  lines.forEach((t,i)=>{
+    let p=document.createElement("p");
+    p.className="line";
+    p.style.animationDelay=(i*1.8)+"s";
+    p.innerText=t;
+    box.appendChild(p);
+  });
+}
+
+function finalProposal(){
+  document.getElementById("popup").classList.add("show");
+}
+</script>
+
+</body>
+</html>
